@@ -1,0 +1,41 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h2>Add New Listing:</h2>
+<form method = 'POST' action="{% url 'create'%}">
+    {% csrf_token %}
+    <div class="mb-3 my-3 mx-5">
+        <label for="title" class="form-label"><strong>Title:</strong></label>
+        <input type="text" class="form-control" placeholder="Enter Title" name="title">
+    </div>
+    <div class="mb-3 my-3 mx-5">
+        <label for="Description" class="form-label"><strong>Description:</strong></label>
+        <input type="text" class="form-control" placeholder="Enter Description" name="description" >
+    </div>
+    <div class="mb-3 my-3 mx-5">
+        <label for="url" class="form-label"><strong>Image URL:</strong></label>
+        <input type="text" class="form-control" placeholder="Enter Image Url" name="img">
+    </div>
+    <div class="mb-3 my-3 mx-5">
+        <label for="price" class="form-label"><strong>Price:</strong></label>
+        <input type="number" min="0" class="form-control" placeholder="Enter Price" name="price">
+    </div>
+
+    
+    <div class="mb-3 mx-5 my-3">
+    <label for="category" class="form-label"><strong>Choose Category</strong></label>
+    <select name="category" class="form-select">
+      <option selected>Select</option>
+      {% for category in categories %}
+      <option>{{category}}</option>
+    {% endfor %}
+    </select>
+    </div>
+    <div class="mb-3 my-3 mx-5 mt-4" >
+        <button type="submit" class="btn-primary btn">Submit</button>
+    </div>
+    
+</form>
+
+
+{% endblock %}

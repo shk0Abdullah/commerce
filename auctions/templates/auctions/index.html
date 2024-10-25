@@ -1,0 +1,37 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+    <form action="{% url 'display'%}" method="POST">
+        {% csrf_token %}
+        <div class="mb-3 mx-5 my-3">
+            <label for="category" class="form-label"><strong>Choose Category</strong></label>
+            <select name="category" class="form-select">
+              <option selected>Select</option>
+              {% for category in categories %}
+              <option>{{category}}</option>
+            {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+    </form>
+
+    <div class="container">
+        <div class="row">
+            {% for listing in listings %}
+                <div class="col-md-4">  <!-- Adjust column size according to your needs (e.g., col-md-3, col-sm-6) -->
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{ listing.img }}" class="card-img-top" alt="{{ listing.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ listing.title }}</h5>
+                            <p class="card-text">{{ listing.description }}</p>
+                            <h4>{{listing.price.bid}} $</h4>
+                            <a href="{% url 'listed' id=listing.id%}" class="btn btn-primary">Bid Now!</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
